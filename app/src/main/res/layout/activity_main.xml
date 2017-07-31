@@ -115,36 +115,36 @@
         app:layout_constraintHorizontal_bias="0.0">
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/scene_edit_text"
             android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="numberSigned"
-            android:text="7"
+            android:text="0"
             android:textAlignment="center"
             android:textSize="36sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/view_edit_text"
             android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="numberSigned"
-            android:text="7"
+            android:text="0"
             android:textAlignment="center"
             android:textSize="36sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editText10"
+            android:id="@+id/take_edit_text"
             android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="numberSigned"
-            android:text="7"
+            android:text="0"
             android:textAlignment="center"
             android:textSize="36sp"
             android:textStyle="bold" />
