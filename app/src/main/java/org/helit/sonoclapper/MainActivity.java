@@ -10,10 +10,6 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    int scene_count = 0;
-    int view_count = 0;
-    int take_count = 0;
     TextView sceneText;
     TextView viewText;
     TextView takeText;
@@ -35,24 +31,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void num_increment(View b) {
+        TextView text;
 
         switch(b.getId())
         {
             case R.id.button2:
-                scene_count += 1;
-                sceneText.setText(Integer.toString(scene_count));
+                text = sceneText;
                 break;
             case R.id.button4:
-                view_count += 1;
-                viewText.setText(Integer.toString(view_count));
+                text = viewText;
                 break;
             case R.id.button6:
-                take_count += 1;
-                takeText.setText(Integer.toString(take_count));
+                text = takeText;
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
         }
+
+        int number = Integer.valueOf(text.getText().toString()); // Get value of the textbox as a number
+        number += 1;
+        text.setText(Integer.toString(number)); // Set string value of the textbox
 
 
 
@@ -61,24 +59,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void num_decrement(View b) {
+        TextView text;
 
         switch(b.getId())
         {
             case R.id.button1:
-                scene_count -=1;
-                sceneText.setText(Integer.toString(scene_count));
+                text = sceneText;
                 break;
             case R.id.button3:
-                view_count -= 1;
-                viewText.setText(Integer.toString(view_count));
+                text = viewText;
                 break;
             case R.id.button5:
-                take_count -= 1;
-                takeText.setText(Integer.toString(take_count));
+                text = takeText;
                 break;
             default:
                 throw new RuntimeException("Unknown button ID");
         }
+
+        int number = Integer.valueOf(text.getText().toString());
+        number -= 1;
+        text.setText(Integer.toString(number));
 
 
 
