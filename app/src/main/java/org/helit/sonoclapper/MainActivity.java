@@ -5,6 +5,9 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,22 +23,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
         sceneText = (EditText) findViewById(R.id.scene_edit_text);
         viewText = (EditText) findViewById(R.id.view_edit_text);
         takeText = (EditText) findViewById(R.id.take_edit_text);
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void num_increment(View b) {
         EditText text;
 
-        switch(b.getId())
-        {
+        switch (b.getId()) {
             case R.id.button2:
                 text = sceneText;
                 break;
@@ -62,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
     public void num_decrement(View b) {
         EditText text;
 
-        switch(b.getId())
-        {
+        switch (b.getId()) {
             case R.id.button1:
                 text = sceneText;
                 break;
@@ -80,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         int number = Integer.valueOf(text.getText().toString());
         number -= 1;
         text.setText(Integer.toString(number));
-
 
 
         Toast notify = Toast.makeText(getApplicationContext(), "Decrement!", Toast.LENGTH_SHORT);

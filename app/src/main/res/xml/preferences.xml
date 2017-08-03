@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <org.helit.sonoclapper.SliderPreference
+        android:defaultValue="100"
+        android:key="clock_ms"
+        android:title="Audio pulse period"
+        />
+</PreferenceScreen>
