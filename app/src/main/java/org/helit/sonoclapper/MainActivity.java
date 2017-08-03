@@ -1,10 +1,10 @@
 package org.helit.sonoclapper;
 
 import android.content.Intent;
-import android.media.AudioFormat;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
-import android.media.AudioTrack;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         sceneText = (EditText) findViewById(R.id.scene_edit_text);
         viewText = (EditText) findViewById(R.id.view_edit_text);
         takeText = (EditText) findViewById(R.id.take_edit_text);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
     @Override
@@ -92,53 +94,30 @@ public class MainActivity extends AppCompatActivity {
         text.setText(Integer.toString(number));
     }
 
-    public void go_button(View b) {
-//        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-//        final int clockMillis = sharedPref.getInt("clock_ms", 100);
+    public void go_button(final View b) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        final int clockMillis = sharedPref.getInt("clock_ms", 100);
 
-        new Thread(new Runnable() {
+        final ToneGenerator toneGenerator = new ToneGenerator(clockMillis);
+
+        b.setEnabled(false);
+        Thread t = new Thread(new Runnable() {
             public void run() {
-                playSound(507, 44100);
-                playSound(707, 44100);
+                toneGenerator.produceClockPulses();
+                toneGenerator.produceVersionPulse();
+                toneGenerator.produceNumberPulse(Integer.valueOf(sceneText.getText().toString()));
+                toneGenerator.produceNumberPulse(Integer.valueOf(viewText.getText().toString()));
+                toneGenerator.produceNumberPulse(Integer.valueOf(takeText.getText().toString()));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        b.setEnabled(true);
+                    }
+                });
             }
-        }).start();
-    }
+        });
+        t.start();
 
-
-    /**
-     * frequency generator
-     * @param frequency ->hz
-     * @param duration ->samples
-     */
-    private void playSound(double frequency, int duration) {
-        // AudioTrack definition
-        int mBufferSize = AudioTrack.getMinBufferSize(44100,
-                AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_8BIT);
-
-        AudioTrack mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
-                AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT,
-                mBufferSize, AudioTrack.MODE_STREAM);
-
-        // Sine wave
-        double[] mSound = new double[44100];
-        short[] mBuffer = new short[duration];
-        for (int i = 0; i < mSound.length; i++) {
-            mSound[i] = Math.sin((2.0*Math.PI * i/(44100/frequency)));
-            if (i >= 40000) {
-                mSound[i] *= -1/4100.0 * i + 441/41.0;
-            } else if (i <= 1000) {
-                mSound[i] *= i/1000.0;
-            }
-            mBuffer[i] = (short) (mSound[i]*Short.MAX_VALUE);
-        }
-
-        mAudioTrack.setStereoVolume(AudioTrack.getMaxVolume(), AudioTrack.getMaxVolume());
-        mAudioTrack.play();
-
-        mAudioTrack.write(mBuffer, 0, mSound.length);
-        mAudioTrack.stop();
-        mAudioTrack.release();
 
     }
 }

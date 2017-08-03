@@ -89,7 +89,7 @@ public class SliderPreference extends DialogPreference {
                 }
 
                 double seekValue = i / 1000.0;
-                double value = 999.0/LOGSLIDER_k * (Math.exp(LOGSLIDER_a * seekValue) - 1.0) + 1.0;
+                double value = (MAX_VALUE - 1.0)/LOGSLIDER_k * (Math.exp(LOGSLIDER_a * seekValue) - 1.0) + 1.0;
                 currentValue = (int) Math.round(value);
 
                 setTextValue();
@@ -165,7 +165,7 @@ public class SliderPreference extends DialogPreference {
         // k = e^a - 1
         // where x is slider position (0,1)
         //   and y is actual position (1,max)
-        double sliderValue = 1 / LOGSLIDER_a * Math.log(LOGSLIDER_k / 999.0 * (((double) currentValue) - 1.0) + 1.0);
+        double sliderValue = 1 / LOGSLIDER_a * Math.log(LOGSLIDER_k / (MAX_VALUE - 1.0) * (currentValue - 1.0) + 1.0);
 
         clockBar.setProgress((int) Math.round(sliderValue * 1000.0));
         stopFiringEvents = false;
