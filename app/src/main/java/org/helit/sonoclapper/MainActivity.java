@@ -1,17 +1,16 @@
 package org.helit.sonoclapper;
 
+import android.content.Intent;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-
 
 public class MainActivity extends AppCompatActivity {
     EditText sceneText;
@@ -26,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         sceneText = (EditText) findViewById(R.id.scene_edit_text);
         viewText = (EditText) findViewById(R.id.view_edit_text);
         takeText = (EditText) findViewById(R.id.take_edit_text);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,11 +68,6 @@ public class MainActivity extends AppCompatActivity {
         int number = Integer.valueOf(text.getText().toString()); // Get value of the textbox as a number
         number += 1;
         text.setText(Integer.toString(number)); // Set string value of the textbox
-
-
-
-        Toast notify = Toast.makeText(getApplicationContext(), "Increment!", Toast.LENGTH_SHORT);
-        notify.show();
     }
 
     public void num_decrement(View b) {
@@ -95,19 +90,12 @@ public class MainActivity extends AppCompatActivity {
         int number = Integer.valueOf(text.getText().toString());
         number -= 1;
         text.setText(Integer.toString(number));
-
-
-        Toast notify = Toast.makeText(getApplicationContext(), "Decrement!", Toast.LENGTH_SHORT);
-        notify.show();
-
-
     }
 
     public void go_button(View b) {
         playSound(507,44100);
 
     }
-
 
 
     /**
