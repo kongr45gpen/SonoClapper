@@ -93,8 +93,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void go_button(View b) {
-        playSound(507,44100);
+//        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+//        final int clockMillis = sharedPref.getInt("clock_ms", 100);
 
+        new Thread(new Runnable() {
+            public void run() {
+                playSound(507, 44100);
+                playSound(707, 44100);
+            }
+        }).start();
     }
 
 
@@ -120,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
             mSound[i] = Math.sin((2.0*Math.PI * i/(44100/frequency)));
             if (i >= 40000) {
                 mSound[i] *= -1/4100.0 * i + 441/41.0;
+            } else if (i <= 1000) {
+                mSound[i] *= i/1000.0;
             }
             mBuffer[i] = (short) (mSound[i]*Short.MAX_VALUE);
         }
