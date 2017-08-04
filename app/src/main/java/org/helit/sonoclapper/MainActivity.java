@@ -6,12 +6,15 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText sceneText;
@@ -30,6 +33,39 @@ public class MainActivity extends AppCompatActivity {
         takeText = (EditText) findViewById(R.id.take_edit_text);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+        sceneText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String text = sceneText.getText().toString();
+                int number = Integer.parseInt(text);
+
+                if (number < 0){
+                    number = 0;
+                    Toast.makeText(getApplicationContext(),"Number must be greater than 0!",Toast.LENGTH_LONG).show();
+                }
+                else if (number >= 256){
+                    number = 255;
+                    Toast.makeText(getApplicationContext(),"Number must be less than 256!",Toast.LENGTH_LONG).show();
+                }
+
+                String correctText = Integer.toString(number);
+
+                if (!text.equals(correctText)) {
+                    sceneText.setText(correctText);
+                }
+            }
+        });
 
 //        mPrefs = getSharedPreferences("SonoClapper", MODE_PRIVATE);
     }
