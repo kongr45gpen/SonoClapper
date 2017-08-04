@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-        sceneText.addTextChangedListener(new TextWatcher() {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String text = sceneText.getText().toString();
+                String text = editable.toString();
                 int number = Integer.parseInt(text);
 
                 if (number < 0){
@@ -62,10 +63,15 @@ public class MainActivity extends AppCompatActivity {
                 String correctText = Integer.toString(number);
 
                 if (!text.equals(correctText)) {
-                    sceneText.setText(correctText);
+                    Editable newEditable = new SpannableStringBuilder(correctText);
+                    editable.replace(0, editable.length(), newEditable);
                 }
             }
-        });
+        };
+
+        sceneText.addTextChangedListener(textWatcher);
+        viewText.addTextChangedListener(textWatcher);
+        takeText.addTextChangedListener(textWatcher);
 
 //        mPrefs = getSharedPreferences("SonoClapper", MODE_PRIVATE);
     }
