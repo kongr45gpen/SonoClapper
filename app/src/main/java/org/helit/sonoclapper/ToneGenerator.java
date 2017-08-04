@@ -5,9 +5,10 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 
 class ToneGenerator {
-    public static final int CLOCK_FREQUENCY1 = 637;
-    public static final int CLOCK_FREQUENCY2 = 809;
-    private static final int[] FREQUENCIES = {823, 1223, 1824, 3579, 6741, 8973, 10325, 12447};
+    public static final double CLOCK_FREQUENCY1 = 861.328;
+    public static final double CLOCK_FREQUENCY2 = 1937.98828125;
+    public static final double FREQUENCY_ZERO = 823; // will probably not be used
+    private static final double[] FREQUENCIES = {1223, 1723, 2524, 3579, 6741, 8973, 10325, 12447};
 
     private static final int SAMPLE_RATE = 44100;
 
@@ -52,6 +53,9 @@ class ToneGenerator {
             if (((number >> i) & 1) == 1) {
                 frequencies[j++] = (FREQUENCIES[i]);
             }
+        }
+        if (number == 0) {
+            frequencies[j++] = FREQUENCY_ZERO;
         }
 
         double[] freqs = new double[j];
