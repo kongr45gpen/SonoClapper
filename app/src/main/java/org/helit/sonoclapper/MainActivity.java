@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     EditText viewText;
     EditText takeText;
 
+//    private SharedPreferences mPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         takeText = (EditText) findViewById(R.id.take_edit_text);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+//        mPrefs = getSharedPreferences("SonoClapper", MODE_PRIVATE);
     }
 
     @Override
