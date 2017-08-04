@@ -5,4 +5,6 @@
     <string name="clock_setting_description">The amount of time to spend for each audio pulse.</string>
     <string name="clock_setting_notice">Setting this to a low value might cause problems with audio decoding, while large values can take up too much of your time.</string>
     <string name="clock_setting_title">Audio pulse clock (in ms)</string>
+    <string name="version_setting_title">Audio Output Version</string>
+    <string name="about_setting">About</string>
 </resources>

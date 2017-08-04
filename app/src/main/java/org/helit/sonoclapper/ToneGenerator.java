@@ -132,4 +132,8 @@ class ToneGenerator {
 
         return sample;
     }
+
+    public static int getVersion() {
+        return version;
+    }
 }

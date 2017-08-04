@@ -6,4 +6,12 @@
         android:key="clock_ms"
         android:title="Audio pulse period"
         />
+    <PreferenceCategory
+        android:title="@string/about_setting">
+        <Preference
+            android:defaultValue="false"
+            android:key="audio_version"
+            android:summary="Unknown version"
+            android:title="@string/version_setting_title" />
+    </PreferenceCategory>
 </PreferenceScreen>
