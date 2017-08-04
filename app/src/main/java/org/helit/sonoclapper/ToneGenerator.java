@@ -26,14 +26,18 @@ class ToneGenerator {
         defaultDuration = clockMs / 1000.0f; // duration is in seconds
     }
 
-    public void produceClockPulses() {
+    public void start() {
         initialiseAudioTrack();
+    }
 
+    public void stop() {
+        releaseAudioTrack();
+    }
+
+    public void produceClockPulses() {
         playSound(CLOCK_FREQUENCY1);
         playSound(CLOCK_FREQUENCY2);
         playSound(new double[]{CLOCK_FREQUENCY1, CLOCK_FREQUENCY2});
-
-        releaseAudioTrack();
     }
 
     public void produceVersionPulse() {
@@ -41,8 +45,6 @@ class ToneGenerator {
     }
 
     public void produceNumberPulse(int number) {
-        initialiseAudioTrack();
-
         double[] frequencies = new double[8];
 
         int j = 0;
@@ -58,8 +60,6 @@ class ToneGenerator {
         }
 
         playSound(freqs);
-
-        releaseAudioTrack();
     }
 
     private void initialiseAudioTrack() {

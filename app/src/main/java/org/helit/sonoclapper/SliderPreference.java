@@ -45,8 +45,8 @@ public class SliderPreference extends DialogPreference {
     @Override
     protected void onBindDialogView(View v) {
         super.onBindDialogView(v);
-        clockBar = v.findViewById(R.id.clockBar);
-        clockValue = v.findViewById(R.id.clockValue);
+        clockBar = (SeekBar) v.findViewById(R.id.clockBar);
+        clockValue = (EditText) v.findViewById(R.id.clockValue);
 
         clockValue.addTextChangedListener(new TextWatcher() {
             @Override

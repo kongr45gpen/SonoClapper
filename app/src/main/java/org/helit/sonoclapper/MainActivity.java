@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -144,21 +144,35 @@ public class MainActivity extends AppCompatActivity {
     public void go_button(final View b) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         final int clockMillis = sharedPref.getInt("clock_ms", 100);
-
         final ToneGenerator toneGenerator = new ToneGenerator(clockMillis);
+
+        final EditText take = takeText;
 
         b.setEnabled(false);
         Thread t = new Thread(new Runnable() {
             public void run() {
+                toneGenerator.start();
                 toneGenerator.produceClockPulses();
                 toneGenerator.produceVersionPulse();
                 toneGenerator.produceNumberPulse(Integer.valueOf(sceneText.getText().toString()));
                 toneGenerator.produceNumberPulse(Integer.valueOf(viewText.getText().toString()));
                 toneGenerator.produceNumberPulse(Integer.valueOf(takeText.getText().toString()));
+                toneGenerator.stop();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         b.setEnabled(true);
+
+                        final Handler handler = new Handler();
+
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Increase the take number after some time
+                                int takeNumber = Integer.valueOf(takeText.getText().toString());
+                                take.setText(String.valueOf(takeNumber+1));
+                            }
+                        }, 1000);
                     }
                 });
             }
