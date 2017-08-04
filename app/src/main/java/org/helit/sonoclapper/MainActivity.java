@@ -18,17 +18,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    EditText productionText;
     EditText sceneText;
     EditText viewText;
     EditText takeText;
 
-//    private SharedPreferences mPrefs;
+    /**
+     * This variable may be null, be sure to check!
+     */
+    EditText directorText;
+
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        productionText = (EditText) findViewById(R.id.production_edit_text);
+        directorText = (EditText) findViewById(R.id.director_edit_text);
         sceneText = (EditText) findViewById(R.id.scene_edit_text);
         viewText = (EditText) findViewById(R.id.view_edit_text);
         takeText = (EditText) findViewById(R.id.take_edit_text);
@@ -53,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
                 if (number < 0){
                     number = 0;
-                    Toast.makeText(getApplicationContext(),"Number must be greater than 0!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Number must be greater than 0!",Toast.LENGTH_SHORT).show();
                 }
                 else if (number >= 256){
                     number = 255;
-                    Toast.makeText(getApplicationContext(),"Number must be less than 256!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Number must be less than 256!",Toast.LENGTH_SHORT).show();
                 }
 
                 String correctText = Integer.toString(number);
@@ -73,7 +81,33 @@ public class MainActivity extends AppCompatActivity {
         viewText.addTextChangedListener(textWatcher);
         takeText.addTextChangedListener(textWatcher);
 
-//        mPrefs = getSharedPreferences("SonoClapper", MODE_PRIVATE);
+        mPrefs = getPreferences(0);
+        productionText.setText(mPrefs.getString("production", "The Trip to Eric"));
+        if (directorText != null) {
+            directorText.setText(mPrefs.getString("director", "Hans Zimmer"));
+        }
+        sceneText.setText(mPrefs.getString("scene", "1"));
+        viewText.setText(mPrefs.getString("view", "1"));
+        takeText.setText(mPrefs.getString("take", "1"));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        // We need an Editor object to make preference changes.
+        // All objects are from android.context.Context
+        SharedPreferences.Editor editor = mPrefs.edit();
+        editor.putString("production", productionText.getText().toString());
+        editor.putString("scene", sceneText.getText().toString());
+        editor.putString("view", viewText.getText().toString());
+        editor.putString("take", takeText.getText().toString());
+        if (directorText != null) {
+            editor.putString("director", directorText.getText().toString());
+        }
+
+        // Commit the edits!
+        editor.apply();
     }
 
     @Override

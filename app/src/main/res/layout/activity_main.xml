@@ -85,14 +85,17 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/production_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="59dp"
         android:ems="10"
         android:fontFamily="monospace"
+        android:imeOptions="actionDone"
         android:inputType="textPersonName"
         android:text="The trip to eric"
         android:textAlignment="center"
@@ -101,19 +104,20 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/director_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="174dp"
         android:ems="10"
         android:fontFamily="monospace"
+        android:imeOptions="actionDone"
         android:inputType="textPersonName"
         android:text="HANS ZIMMER"
         android:textAlignment="center"
@@ -122,9 +126,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -135,7 +137,7 @@
         android:layout_marginRight="8dp"
         android:text="Director"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        app:layout_constraintBottom_toTopOf="@+id/director_edit_text"
         app:layout_constraintHorizontal_bias="0.028"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -154,7 +156,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_bias="0.028"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/production_edit_text"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
@@ -222,55 +224,58 @@
         android:layout_marginTop="-7dp"
         android:layout_weight="1"
         android:ems="10"
+        android:imeOptions="actionDone"
         android:inputType="numberSigned"
         android:text="0"
         android:textAlignment="center"
         android:textSize="36sp"
         android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/view_edit_text"
-        app:layout_constraintTop_toTopOf="@+id/view_edit_text"
-        app:layout_constraintHorizontal_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/view_edit_text" />
 
     <EditText
         android:id="@+id/view_edit_text"
         android:layout_width="115dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:ems="10"
+        android:imeOptions="actionDone"
         android:inputType="numberSigned"
         android:text="0"
         android:textAlignment="center"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
-        app:layout_constraintHorizontal_bias="0.501"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/clap_button"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/director_edit_text"
         app:layout_constraintVertical_bias="0.45" />
 
     <EditText
         android:id="@+id/take_edit_text"
         android:layout_width="115dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
         android:ems="10"
+        android:imeOptions="actionDone"
         android:inputType="numberSigned"
         android:text="0"
         android:textAlignment="center"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toRightOf="@+id/view_edit_text"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintTop_toTopOf="@+id/view_edit_text"
-        android:layout_marginTop="0dp"
-        app:layout_constraintHorizontal_bias="1.0" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_edit_text" />
 
     <TextView
         android:id="@+id/textView3"
@@ -284,7 +289,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="@+id/scene_edit_text"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/director_edit_text"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/scene_edit_text"
         app:layout_constraintVertical_bias="0.886" />
@@ -303,7 +308,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/view_edit_text"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/director_edit_text"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintVertical_bias="0.886" />
 
@@ -321,7 +326,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/take_edit_text"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/director_edit_text"
         app:layout_constraintVertical_bias="0.886" />
 
 </android.support.constraint.ConstraintLayout>
