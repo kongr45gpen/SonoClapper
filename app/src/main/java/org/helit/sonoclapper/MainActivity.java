@@ -59,13 +59,12 @@ public class MainActivity extends AppCompatActivity {
                 String text = editable.toString();
                 int number = Integer.parseInt(text);
 
-                if (number < 0){
+                if (number < 0) {
                     number = 0;
-                    Toast.makeText(getApplicationContext(),"Number must be greater than 0!",Toast.LENGTH_SHORT).show();
-                }
-                else if (number >= 256){
+                    Toast.makeText(getApplicationContext(), "Number must be greater than 0!", Toast.LENGTH_SHORT).show();
+                } else if (number >= 256) {
                     number = 255;
-                    Toast.makeText(getApplicationContext(),"Number must be less than 256!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Number must be less than 256!", Toast.LENGTH_SHORT).show();
                 }
 
                 String correctText = Integer.toString(number);
@@ -204,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 // Increase the take number after some time
                                 int takeNumber = Integer.valueOf(takeText.getText().toString());
-                                take.setText(String.valueOf(takeNumber+1));
+                                take.setText(String.valueOf(takeNumber + 1));
                             }
                         }, 1000);
                     }
