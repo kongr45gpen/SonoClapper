@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.Locale;
 
@@ -19,6 +20,8 @@ import java.util.Locale;
 public class SliderPreference extends DialogPreference {
     private SeekBar clockBar;
     private EditText clockValue;
+    private TextView samples44100;
+    private TextView samples48000;
 
     private boolean stopFiringEvents = false;
 
@@ -47,6 +50,8 @@ public class SliderPreference extends DialogPreference {
         super.onBindDialogView(v);
         clockBar = (SeekBar) v.findViewById(R.id.clockBar);
         clockValue = (EditText) v.findViewById(R.id.clockValue);
+        samples44100 = (TextView) v.findViewById(R.id.samples44100);
+        samples48000 = (TextView) v.findViewById(R.id.samples48000);
 
         clockValue.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,6 +84,7 @@ public class SliderPreference extends DialogPreference {
                 }
 
                 setProgressBarValue();
+                setSampleValue();
             }
         });
         clockBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -93,6 +99,7 @@ public class SliderPreference extends DialogPreference {
                 currentValue = (int) Math.round(value);
 
                 setTextValue();
+                setSampleValue();
             }
 
             @Override
@@ -147,6 +154,7 @@ public class SliderPreference extends DialogPreference {
     private void setValue() {
         setTextValue();
         setProgressBarValue();
+        setSampleValue();
     }
 
     private void setTextValue() {
@@ -169,5 +177,10 @@ public class SliderPreference extends DialogPreference {
 
         clockBar.setProgress((int) Math.round(sliderValue * 1000.0));
         stopFiringEvents = false;
+    }
+
+    private void setSampleValue() {
+        samples44100.setText(String.valueOf(Math.round(currentValue/1000.0 * 44100)));
+        samples48000.setText(String.valueOf(Math.round(currentValue/1000.0 * 48000)));
     }
 }

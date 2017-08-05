@@ -57,7 +57,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 String text = editable.toString();
-                int number = Integer.parseInt(text);
+                int number;
+
+                try {
+                    number = Integer.parseInt(text);
+                } catch (NumberFormatException e) {
+                    number = 0;
+                }
+
 
                 if (number < 0) {
                     number = 0;
