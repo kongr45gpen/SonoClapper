@@ -8,4 +8,5 @@
     <string name="version_setting_title">Audio Output Version</string>
     <string name="about_setting">About</string>
     <string name="clock_setting_samples">Duration:</string>
+    <string name="revision_setting_title">Internal Revision</string>
 </resources>
