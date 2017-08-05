@@ -5,10 +5,10 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 
 class ToneGenerator {
-    public static final double CLOCK_FREQUENCY1 = 861.328;
-    public static final double CLOCK_FREQUENCY2 = 1937.98828125;
+    public static final double CLOCK_FREQUENCY1 = 1077.39258;
+    public static final double CLOCK_FREQUENCY2 = 1593.60352; // TODO: 1.5* harmonics?
     public static final double ZERO_FREQUENCY = 823; // will probably not be used
-    private static final double[] FREQUENCIES = {1223, 1723, 2524, 3579, 6741, 8973, 10325, 12447};
+    private static final double[] FREQUENCIES = {1077.39258, 3187.20703, 3703.41797, 5297.02148, 6890.62500, 8484.22852, 10077.83203, 13781.25000};
 
     private static final int SAMPLE_RATE = 44100;
 
