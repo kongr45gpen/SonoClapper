@@ -17,6 +17,7 @@ public class SettingsFragment extends PreferenceFragment {
         // Add the version number to the corresponding summary
         Resources res = getResources();
         getPreferenceScreen().findPreference("audio_version").setSummary(String.format(Locale.getDefault(), "Version %d", ToneGenerator.getVersion()));
-        getPreferenceScreen().findPreference("internal_version").setSummary(String.format(Locale.getDefault(), "Revision %d", res.getInteger(R.integer.internal_revision)));
+        getPreferenceScreen().findPreference("internal_version").setSummary(String.format(Locale.getDefault(),
+                "Revision %d (commit %s)", res.getInteger(R.integer.internal_revision), res.getString(R.string.git_commit)));
     }
 }
