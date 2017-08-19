@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,49 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-        TextWatcher textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String text = editable.toString();
-                int number;
-
-                try {
-                    number = Integer.parseInt(text);
-                } catch (NumberFormatException e) {
-                    number = 0;
-                }
-
-
-                if (number < 0) {
-                    number = 0;
-                    Toast.makeText(getApplicationContext(), "Number must be greater than 0!", Toast.LENGTH_SHORT).show();
-                } else if (number >= 256) {
-                    number = 255;
-                    Toast.makeText(getApplicationContext(), "Number must be less than 256!", Toast.LENGTH_SHORT).show();
-                }
-
-                String correctText = Integer.toString(number);
-
-                if (!text.equals(correctText)) {
-                    Editable newEditable = new SpannableStringBuilder(correctText);
-                    editable.replace(0, editable.length(), newEditable);
-                }
-            }
-        };
-
-        sceneText.addTextChangedListener(textWatcher);
-        viewText.addTextChangedListener(textWatcher);
-        takeText.addTextChangedListener(textWatcher);
+        sceneText.addTextChangedListener(new TakeWatcher(viewText));
+        viewText.addTextChangedListener(new TakeWatcher(takeText));
+        takeText.addTextChangedListener(new TakeWatcher(null));
 
         mPrefs = getPreferences(0);
         productionText.setText(mPrefs.getString("production", "The Trip to Eric"));
@@ -221,6 +182,60 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    class TakeWatcher implements TextWatcher {
+        TextView resettingView;
+
+        /**
+         * @param resettingView A TextView to reset when this value is changed (can be null)
+         */
+        TakeWatcher(TextView resettingView) {
+            this.resettingView = resettingView;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            String text = editable.toString();
+            int number;
+
+            try {
+                number = Integer.parseInt(text);
+            } catch (NumberFormatException e) {
+                number = 0;
+            }
+
+
+            if (number < 0) {
+                number = 0;
+                Toast.makeText(getApplicationContext(), "Number must be greater than 0!", Toast.LENGTH_SHORT).show();
+            } else if (number >= 256) {
+                number = 255;
+                Toast.makeText(getApplicationContext(), "Number must be less than 256!", Toast.LENGTH_SHORT).show();
+            }
+
+            String correctText = Integer.toString(number);
+
+            if (!text.equals(correctText)) {
+                Editable newEditable = new SpannableStringBuilder(correctText);
+                editable.replace(0, editable.length(), newEditable);
+            }
+
+            // Reset less significant text fields
+            if (resettingView != null) {
+                resettingView.setText("1");
+            }
+        }
+    };
 }
 
 
