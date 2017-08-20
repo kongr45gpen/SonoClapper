@@ -3,6 +3,7 @@ package org.helit.sonoclapper;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.os.SystemClock;
 
 class ToneGenerator {
     public static final double CLOCK_FREQUENCY1 = 1077.39258;
@@ -29,9 +30,15 @@ class ToneGenerator {
 
     public void start() {
         initialiseAudioTrack();
+        mAudioTrack.play();
     }
 
     public void stop() {
+        mAudioTrack.stop();
+
+        // Workaround for issue with inaudible last samples
+        SystemClock.sleep(500);
+
         releaseAudioTrack();
     }
 
@@ -117,10 +124,7 @@ class ToneGenerator {
             mBuffer[i] = (short) (value*Short.MAX_VALUE);
         }
 
-        mAudioTrack.play();
-
         mAudioTrack.write(mBuffer, 0, samples);
-        mAudioTrack.stop();
     }
 
 
