@@ -4,6 +4,10 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.SystemClock;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.zip.CRC32;
 
 class ToneGenerator {
     public static final double CLOCK_FREQUENCY1 = 1077.39258;
@@ -24,18 +28,17 @@ class ToneGenerator {
 
     private static final int version = 1;
 
+    private ArrayList<Byte> providedData = new ArrayList<Byte>();
+
     public ToneGenerator(int clockMs) {
         defaultDuration = clockMs / 1000.0f; // duration is in seconds
     }
 
     public void start() {
         initialiseAudioTrack();
-        mAudioTrack.play();
     }
 
     public void stop() {
-        mAudioTrack.stop();
-
         // Workaround for issue with inaudible last samples
         SystemClock.sleep(500);
 
@@ -48,11 +51,28 @@ class ToneGenerator {
         playSound(new double[]{CLOCK_FREQUENCY1, CLOCK_FREQUENCY2});
     }
 
+    void produceChecksumPulse() {
+        Log.e("MYCLASS", providedData.toString());
+        CRC32 crc = new CRC32();
+        for (Byte temp : providedData) {
+            Log.e("MYCLASS", temp.toString());
+            crc.update(temp.intValue());
+        }
+
+        long value = crc.getValue();
+
+        // Get last 7 bits
+        produceNumberPulse((int) (value & 0x7F));
+    }
+
     public void produceVersionPulse() {
+        providedData.add((byte) version);
         produceNumberPulse(version);
     }
 
     public void produceNumberPulse(int number) {
+        providedData.add((byte) number);
+
         double[] frequencies = new double[8];
 
         int j = 0;
@@ -124,7 +144,9 @@ class ToneGenerator {
             mBuffer[i] = (short) (value*Short.MAX_VALUE);
         }
 
+        mAudioTrack.play();
         mAudioTrack.write(mBuffer, 0, samples);
+        mAudioTrack.stop();
     }
 
 

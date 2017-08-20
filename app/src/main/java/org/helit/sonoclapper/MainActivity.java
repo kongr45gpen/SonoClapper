@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 toneGenerator.produceNumberPulse(Integer.valueOf(sceneText.getText().toString()));
                 toneGenerator.produceNumberPulse(Integer.valueOf(viewText.getText().toString()));
                 toneGenerator.produceNumberPulse(Integer.valueOf(takeText.getText().toString()));
+                toneGenerator.produceChecksumPulse();
                 toneGenerator.stop();
                 runOnUiThread(new Runnable() {
                     @Override
